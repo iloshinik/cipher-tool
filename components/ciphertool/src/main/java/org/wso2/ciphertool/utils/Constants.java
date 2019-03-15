@@ -25,6 +25,7 @@ public class Constants {
     public static final String CHANGE = "change";
     public static final String CARBON_HOME = "carbon.home";
     public static final String HOME_FOLDER = "home.folder";
+    public static final String PASSWORD_TO_BE_ENCRYPTED_PARAM = "encrypt";
     public static final String TRUE = "true";
 
     public static final String REPOSITORY_DIR = "repository";

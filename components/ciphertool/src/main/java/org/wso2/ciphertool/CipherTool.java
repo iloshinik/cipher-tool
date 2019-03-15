@@ -82,6 +82,9 @@ public class CipherTool {
                     System.setProperty(property, Constants.TRUE);
                 } else if (property.equals(Constants.CHANGE)) {
                     System.setProperty(property, Constants.TRUE);
+                } else if (property.startsWith(Constants.PASSWORD_TO_BE_ENCRYPTED_PARAM)) {
+                    String[] params = property.split("=");
+                    System.setProperty(Constants.PASSWORD_TO_BE_ENCRYPTED_PARAM, params[1]);
                 } else if (property.length() >= 8 && property.substring(0, 8).equals(Constants.CONSOLE_PASSWORD_PARAM)) {
                     System.setProperty(Constants.KEYSTORE_PASSWORD, property.substring(9));
                 } else {
@@ -121,14 +124,12 @@ public class CipherTool {
      * @param cipher cipher
      */
     private static void encryptedValue(Cipher cipher) {
-        String firstPassword = Utils.getValueFromConsole("Enter Plain Text Value : ", true);
-        String secondPassword = Utils.getValueFromConsole("Please Enter Value Again : ", true);
-
-        if (!firstPassword.isEmpty() && firstPassword.equals(secondPassword)) {
-            String encryptedText = doEncryption(cipher, firstPassword);
+        String passwordToBeEncrypted = System.getProperty(Constants.PASSWORD_TO_BE_ENCRYPTED_PARAM);
+        if (!passwordToBeEncrypted.isEmpty()) {
+            String encryptedText = doEncryption(cipher, passwordToBeEncrypted);
             System.out.println("\nEncrypted value is : \n" + encryptedText + "\n");
         } else {
-            throw new CipherToolException("Error : Password does not match");
+            throw new CipherToolException("Error : Invalid Argument.");
         }
     }
 
